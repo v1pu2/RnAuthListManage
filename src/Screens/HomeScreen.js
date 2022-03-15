@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -6,71 +6,61 @@ import {
   TextInput,
   Dimensions,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
-import {connect} from 'react-redux';
-import {getUser} from '../Actions/ActionFile';
-import Colors from '../Theme/Colors';
-// import styles from '../Theme/CommonStyles';
-const deviceWidth = Dimensions.get('window').width;
-const HomeScreen = props => {
-  const {navigation} = props;
-  useEffect(() => {
-    props.getUser();
-  }, []);
 
+import {useDispatch} from 'react-redux';
+import {addItem} from '../Actions/ActionItem';
+import Button from '../Component/Button';
+import c_styles from '../Theme/CommonStyles';
+
+const deviceWidth = Dimensions.get('window').width;
+
+const HomeScreen = props => {
+  const [item, setItem] = useState('');
+  const dispatch = useDispatch();
+  const {navigation} = props;
+
+  const addClick = () => {
+    dispatch(addItem(item));
+    setItem('');
+    Keyboard.dismiss();
+  };
   return (
-    <View style={styles.container}>
-      <View style={{width: deviceWidth, padding: 30}}>
+    <View style={c_styles.container}>
+      <View style={styles.innerView}>
         <Text style={styles.txtTitle}>Enter value</Text>
         <View style={{flexDirection: 'row'}}>
           <TextInput
             style={styles.inputStyle}
-            value={'userEmail'}
-            placeholder="Email Address *"
-            keyboardType="email-address"
+            value={item}
+            placeholder="Add Item *"
             returnKeyType="next"
-            // onChangeText={item => setUserEmail(item)}
+            onChangeText={item => setItem(item)}
             placeholderTextColor="#8b9cb5"
             underlineColorAndroid="#f000"
           />
           <TouchableOpacity
-            // onPress={() => validateLogin()}
-            style={styles.button}>
-            <Text style={styles.appButtonText}>{'Add'}</Text>
+            onPress={() => item !== '' && addClick()}
+            style={c_styles.button}>
+            <Text style={c_styles.appButtonText}>{'Add'}</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.rowView}>
-          <Text style={styles.txtRemember}>Do you want to see the list?</Text>
+        <View style={c_styles.rowView}>
+          <Text style={c_styles.txtValue}>Do you want to see the list?</Text>
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Register')}
-          style={styles.button}>
-          <Text style={styles.appButtonText}>{'Check List'}</Text>
-        </TouchableOpacity>
+        <Button
+          text="Check List"
+          onPress={() => navigation.navigate('ListScreen')}
+        />
       </View>
     </View>
   );
 };
-// export default HomeScreen;
-const mapStateToProps = state => {
-  console.log('state in home-*******-', state?.AuthReducer?.userDetail);
-  return {
-    user: state?.AuthReducer?.userDetail,
-  };
-};
-const mapDispatchToProps = {
-  getUser,
-};
+export default HomeScreen;
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: 'white',
-  },
+  innerView: {width: deviceWidth, padding: 30},
   txtTitle: {
     fontWeight: 'bold',
     fontSize: 22,
@@ -87,36 +77,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#eeeeee',
     marginTop: 20,
-  },
-
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: Colors.color2,
-    marginTop: 20,
-    marginLeft: 10,
-  },
-  appButtonText: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
-  },
-  rowView: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
-    paddingVertical: 10,
-  },
-  txtRemember: {
-    color: '#111212',
-    fontWeight: '500',
-    fontSize: 12,
-    lineHeight: 16,
   },
 });

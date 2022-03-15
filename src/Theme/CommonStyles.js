@@ -1,7 +1,8 @@
 import {StyleSheet} from 'react-native';
+import Colors from './Colors';
 import colors from './Colors';
 
-const styles = StyleSheet.create({
+const c_styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -36,11 +37,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingVertical: 10,
   },
-  txtRemember: {
+  txtValue: {
     color: '#111212',
     fontWeight: '500',
     fontSize: 12,
     lineHeight: 16,
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: Colors.color2,
+    marginTop: 20,
+    marginLeft: 10,
   },
   appButtonText: {
     fontSize: 18,
@@ -50,4 +62,4 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
 });
-export default styles;
+export default c_styles;
