@@ -3,6 +3,7 @@ import {Platform} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './HomeScreen';
 import SettingScreen from './SettingScreen';
+import Colors from '../Theme/Colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,12 +15,21 @@ const BottomTabLayout = () => {
         headerShown: false,
         tabBarStyle: {
           height: 70,
-          paddingTop: Platform?.OS === 'ios' ? 25 : 15,
-          backgroundColor: 'white',
           position: 'absolute',
           overflow: 'hidden',
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
+          backgroundColor: Colors.color2,
+        },
+        tabBarIconStyle: {display: 'none'},
+        tabBarLabelStyle: {
+          fontSize: 18,
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          textAlignVertical: 'center',
         },
       })}>
       <Tab.Screen
@@ -27,6 +37,8 @@ const BottomTabLayout = () => {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
+          tabBarActiveTintColor: Colors.color1,
+          tabBarInactiveTintColor: Colors.color0,
         }}
       />
       <Tab.Screen
@@ -34,6 +46,8 @@ const BottomTabLayout = () => {
         component={SettingScreen}
         options={{
           tabBarLabel: 'Settings',
+          tabBarActiveTintColor: Colors.color1,
+          tabBarInactiveTintColor: Colors.color0,
         }}
       />
     </Tab.Navigator>
