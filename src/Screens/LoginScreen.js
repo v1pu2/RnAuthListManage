@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
   Dimensions,
@@ -12,9 +11,10 @@ import {
 import {connect} from 'react-redux';
 import {getUser, logIn} from '../Actions/ActionAuth';
 import Button from '../Component/Button';
+import c_styles from '../Theme/CommonStyles';
 
-import Colors from '../Theme/Colors';
 const deviceWidth = Dimensions.get('window').width;
+
 const LoginScreen = props => {
   const {navigation} = props;
   const [userEmail, setUserEmail] = useState('');
@@ -53,14 +53,14 @@ const LoginScreen = props => {
   }, []);
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView style={c_styles.container}>
       <View style={styles.topView}>
         <Text style={styles.txtTitle}>Welcome</Text>
-        <Text style={styles.txtSubTitle}>Sub-title text goes here</Text>
+        <Text style={c_styles.txtSubTitle}>Sub-title text goes here</Text>
       </View>
       <View style={styles.SectionStyle}>
         <TextInput
-          style={styles.inputStyle}
+          style={c_styles.inputStyle}
           value={userEmail}
           placeholder="Email Address *"
           keyboardType="email-address"
@@ -75,7 +75,7 @@ const LoginScreen = props => {
 
         <TextInput
           ref={passRef}
-          style={styles.inputStyle}
+          style={c_styles.inputStyle}
           value={userPassword}
           onChangeText={item => setUserPassword(item)}
           placeholder="Password *"
@@ -84,8 +84,8 @@ const LoginScreen = props => {
         />
 
         <Button text="Login" onPress={validateLogin} />
-        <View style={styles.rowView}>
-          <Text style={styles.txtRemember}>Have you not Registered yet?</Text>
+        <View style={c_styles.rowView}>
+          <Text style={c_styles.txtValue}>Have you not Registered yet?</Text>
         </View>
 
         <Button
@@ -98,7 +98,6 @@ const LoginScreen = props => {
 };
 
 const mapStateToProps = state => {
-  console.log('in login screen---', state?.AuthReducer?.userDetail);
   return {
     user: state?.AuthReducer?.userDetail,
   };
@@ -110,39 +109,11 @@ const mapDispatchToProps = {
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: 'white',
-  },
   topView: {width: deviceWidth, alignItems: 'center'},
   txtTitle: {
     fontWeight: 'bold',
     fontSize: 32,
     color: '#041115',
-  },
-  txtSubTitle: {
-    fontWeight: '600',
-    fontSize: 12,
-    lineHeight: 20,
-    color: '#8a979b',
-  },
-  containerStyle: {
-    borderBottomColor: '#efefef',
-    height: 30,
-    backgroundColor: 'red',
-  },
-  inputStyle: {
-    height: 40,
-    color: 'black',
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderWidth: 2,
-    borderRadius: 10,
-    borderColor: '#eeeeee',
-    marginTop: 20,
   },
   SectionStyle: {
     width: deviceWidth,
@@ -151,18 +122,5 @@ const styles = StyleSheet.create({
     marginLeft: 35,
     marginRight: 35,
     margin: 10,
-  },
-
-  rowView: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 10,
-    paddingVertical: 10,
-  },
-  txtRemember: {
-    color: '#111212',
-    fontWeight: '500',
-    fontSize: 12,
-    lineHeight: 16,
   },
 });
