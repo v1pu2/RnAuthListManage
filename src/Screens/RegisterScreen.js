@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Platform,
   TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
@@ -67,9 +68,9 @@ const RegisterScreen = props => {
     navigation.navigate('Login');
   };
   return (
-    <ScrollView>
-      <KeyboardAvoidingView style={styles.container}>
-        <View style={{alignItems: 'center'}}>
+    <KeyboardAvoidingView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollStyle}>
+        <View style={styles.innerView}>
           <Text style={styles.txtTitle}>Registeration</Text>
           <View style={styles.SectionStyle}>
             <TextInput
@@ -148,8 +149,8 @@ const RegisterScreen = props => {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 const mapStateToProps = state => {
@@ -169,8 +170,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: Colors.color1,
   },
+  scrollStyle: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  innerView: {alignItems: 'center'},
   txtTitle: {
     fontWeight: 'bold',
     fontSize: 22,
@@ -194,7 +200,7 @@ const styles = StyleSheet.create({
     color: 'black',
     paddingLeft: 15,
     paddingRight: 15,
-    borderWidth: 2,
+    borderWidth: 3,
     borderRadius: 10,
     borderColor: '#eeeeee',
     marginTop: 20,
