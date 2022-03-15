@@ -11,7 +11,8 @@ import {
   Alert,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setUser} from '../Actions/ActionFile';
+import {setUser} from '../Actions/ActionAuth';
+import Button from '../Component/Button';
 
 import Colors from '../Theme/Colors';
 
@@ -24,13 +25,18 @@ const RegisterScreen = props => {
   const [userPassword, setUserPassword] = useState('');
   const [userConfPassword, setUserConfPassword] = useState('');
 
+  const lRef = useRef();
+  const phoneRef = useRef();
+  const emailRef = useRef();
   const passRef = useRef();
+  const cPassRef = useRef();
 
   const validateEmail = () => {
     const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (reg.test(userEmail) === true) {
       return true;
     } else {
+      Alert.alert('Please enter valid email');
       return false;
     }
   };
@@ -46,26 +52,29 @@ const RegisterScreen = props => {
       return false;
     }
   };
-  const validateRegister = () => {
-    // userFname !== '' &&
-    //   userLname !== '' &&
-    //   userPhone !== '' &&
-    //   userPassword !== '' &&
-    //   userEmail &&
-    //   userEmail !== '' &&
-    // validateEmail() && validatePass() && navigation.navigate('Login');
+  const storeUserData = () => {
     const data = {
-      // user: {
-      Fname: 'aaa',
-      email: 'abc@abc.com',
-      password: 'abc123',
+      fName: userFname,
+      lName: userLname,
+      phone: userPhone,
+      email: userEmail,
+      password: userPassword,
       isRegistered: true,
-      isLogin: false,
-      // },
     };
     console.log('data in register', data);
     props.setUser(data);
     navigation.navigate('Login');
+  };
+  const validateRegister = () => {
+    userFname !== '' &&
+      userLname !== '' &&
+      userPhone !== '' &&
+      userPassword !== '' &&
+      userEmail &&
+      userEmail !== '' &&
+      validateEmail() &&
+      validatePass() &&
+      storeUserData();
   };
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -77,44 +86,52 @@ const RegisterScreen = props => {
               style={styles.inputStyle}
               value={userFname}
               placeholder="Enter First Name *"
+              autoFocus={true}
               returnKeyType="next"
-              // onSubmitEditing={() => {
-              //   passRef.current.focus();
-              // }}
+              onSubmitEditing={() => {
+                lRef.current.focus();
+              }}
               onChangeText={item => setUserFname(item)}
               placeholderTextColor="#8b9cb5"
               underlineColorAndroid="#f000"
             />
             <TextInput
+              ref={lRef}
               style={styles.inputStyle}
               value={userLname}
               placeholder="Enter Last Name *"
+              // autoFocus={true}
               returnKeyType="next"
-              // onSubmitEditing={() => {
-              //   passRef.current.focus();
-              // }}
+              onSubmitEditing={() => {
+                phoneRef.current.focus();
+              }}
               onChangeText={item => setUserLname(item)}
               placeholderTextColor="#8b9cb5"
               underlineColorAndroid="#f000"
             />
             <TextInput
+              ref={phoneRef}
               style={styles.inputStyle}
               value={userPhone}
               placeholder="Enter Phone *"
               keyboardType="number-pad"
+              // autoFocus={true}
               returnKeyType="next"
-              // onSubmitEditing={() => {
-              //   passRef.current.focus();
-              // }}
+              onSubmitEditing={() => {
+                emailRef.current.focus();
+              }}
+              maxLength={10}
               onChangeText={item => setUserPhone(item)}
               placeholderTextColor="#8b9cb5"
               underlineColorAndroid="#f000"
             />
             <TextInput
+              ref={emailRef}
               style={styles.inputStyle}
               value={userEmail}
               placeholder="Email Address *"
               keyboardType="email-address"
+              // autoFocus={true}
               returnKeyType="next"
               onSubmitEditing={() => {
                 passRef.current.focus();
@@ -132,9 +149,14 @@ const RegisterScreen = props => {
               placeholder="Password *"
               placeholderTextColor="#8b9cb5"
               secureTextEntry={true}
+              // autoFocus={true}
+              returnKeyType="next"
+              onSubmitEditing={() => {
+                cPassRef.current.focus();
+              }}
             />
             <TextInput
-              ref={passRef}
+              ref={cPassRef}
               style={styles.inputStyle}
               value={userConfPassword}
               onChangeText={item => setUserConfPassword(item)}
@@ -142,11 +164,8 @@ const RegisterScreen = props => {
               placeholderTextColor="#8b9cb5"
               secureTextEntry={true}
             />
-            <TouchableOpacity
-              onPress={() => validateRegister()}
-              style={styles.button}>
-              <Text style={styles.appButtonText}>{'Register'}</Text>
-            </TouchableOpacity>
+
+            <Button text="Register" onPress={validateRegister} />
           </View>
         </View>
       </ScrollView>
@@ -154,7 +173,7 @@ const RegisterScreen = props => {
   );
 };
 const mapStateToProps = state => {
-  console.log('state in register--', state);
+  // console.log('state in register--', state);
   return {
     users: state,
   };
@@ -195,12 +214,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
   inputStyle: {
-    // flex: 1,
     height: 40,
     color: 'black',
     paddingLeft: 15,
     paddingRight: 15,
-    borderWidth: 3,
+    borderWidth: 2,
     borderRadius: 10,
     borderColor: '#eeeeee',
     marginTop: 20,
@@ -212,23 +230,7 @@ const styles = StyleSheet.create({
     marginRight: 35,
     margin: 10,
   },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: Colors.color2,
-    marginTop: 20,
-  },
-  appButtonText: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
-  },
+
   rowView: {
     flexDirection: 'row',
     justifyContent: 'center',
