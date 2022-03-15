@@ -1,4 +1,4 @@
-import {GET_USER, SET_USER, UPDATE_USER} from '../Actions/Types';
+import {GET_USER, SET_USER, LOG_IN, LOG_OUT} from '../Actions/Types';
 
 const initialState = {
   users: [],
@@ -6,7 +6,6 @@ const initialState = {
 };
 
 const authReducer = (state = initialState, action) => {
-  console.log('in reducer--action--', action);
   switch (action.type) {
     case GET_USER:
       return {
@@ -18,10 +17,15 @@ const authReducer = (state = initialState, action) => {
         ...state,
         userDetail: action.payload,
       };
-    case UPDATE_USER:
+    case LOG_IN:
       return {
         ...state,
-        userDetail: action.payload,
+        isLogin: action.payload,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        isLogin: action.payload,
       };
     default:
       return state;

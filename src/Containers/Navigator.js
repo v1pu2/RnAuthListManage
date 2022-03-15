@@ -3,32 +3,19 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {AppStack} from './AppStack';
 import {AuthStack} from './AuthStack';
-import {getUser} from '../Actions/ActionFile';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const Navigator = props => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const checkLogin = useSelector(state => state);
+
   useEffect(() => {
-    props.getUser();
-  }, []);
-  useEffect(() => {
-    console.log('props.user====', props?.user?.isLogin);
-    setIsLoggedIn(props?.user?.isLogin);
-  }, [props.user]);
+    setIsLoggedIn(checkLogin?.AuthReducer?.isLogin);
+  }, [checkLogin]);
   return (
     <NavigationContainer>
       {isLoggedIn ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
-
-const mapStateToProps = state => {
-  return {
-    user: state?.AuthReducer?.userDetail,
-  };
-};
-const mapDispatchToProps = {
-  getUser,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navigator);
+export default Navigator;
