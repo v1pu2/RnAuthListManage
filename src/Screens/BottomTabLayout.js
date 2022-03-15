@@ -25,7 +25,7 @@ const BottomTabLayout = () => {
         tabBarLabelStyle: {
           fontSize: 18,
           position: 'absolute',
-          top: 0,
+          top: Platform?.OS === 'ios' ? 15 : 0,
           bottom: 0,
           left: 0,
           right: 0,
