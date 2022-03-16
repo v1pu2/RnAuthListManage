@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Platform,
+  Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
@@ -15,6 +15,7 @@ import {setUser} from '../Actions/ActionAuth';
 import Button from '../Component/Button';
 
 import Colors from '../Theme/Colors';
+import c_styles from '../Theme/CommonStyles';
 
 const RegisterScreen = props => {
   const {navigation} = props;
@@ -83,7 +84,7 @@ const RegisterScreen = props => {
           <Text style={styles.txtTitle}>Registeration</Text>
           <View style={styles.SectionStyle}>
             <TextInput
-              style={styles.inputStyle}
+              style={c_styles.inputStyle}
               value={userFname}
               placeholder="Enter First Name *"
               autoFocus={true}
@@ -97,7 +98,7 @@ const RegisterScreen = props => {
             />
             <TextInput
               ref={lRef}
-              style={styles.inputStyle}
+              style={c_styles.inputStyle}
               value={userLname}
               placeholder="Enter Last Name *"
               // autoFocus={true}
@@ -111,7 +112,7 @@ const RegisterScreen = props => {
             />
             <TextInput
               ref={phoneRef}
-              style={styles.inputStyle}
+              style={c_styles.inputStyle}
               value={userPhone}
               placeholder="Enter Phone *"
               keyboardType="number-pad"
@@ -127,7 +128,7 @@ const RegisterScreen = props => {
             />
             <TextInput
               ref={emailRef}
-              style={styles.inputStyle}
+              style={c_styles.inputStyle}
               value={userEmail}
               placeholder="Email Address *"
               keyboardType="email-address"
@@ -143,7 +144,7 @@ const RegisterScreen = props => {
 
             <TextInput
               ref={passRef}
-              style={styles.inputStyle}
+              style={c_styles.inputStyle}
               value={userPassword}
               onChangeText={item => setUserPassword(item)}
               placeholder="Password *"
@@ -157,7 +158,7 @@ const RegisterScreen = props => {
             />
             <TextInput
               ref={cPassRef}
-              style={styles.inputStyle}
+              style={c_styles.inputStyle}
               value={userConfPassword}
               onChangeText={item => setUserConfPassword(item)}
               placeholder="Confirm Password *"
@@ -195,7 +196,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
   },
-  innerView: {alignItems: 'center'},
+  innerView: {
+    alignItems: 'center',
+    width: Dimensions.get('window').width,
+    paddingHorizontal: 80,
+  },
   txtTitle: {
     fontWeight: 'bold',
     fontSize: 22,
@@ -213,20 +218,11 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: 'red',
   },
-  inputStyle: {
-    height: 40,
-    color: 'black',
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderWidth: 2,
-    borderRadius: 10,
-    borderColor: '#eeeeee',
-    marginTop: 20,
-  },
+
   SectionStyle: {
-    width: 300,
+    width: Dimensions.get('window').width,
+    paddingHorizontal: 80,
     marginTop: 20,
-    marginLeft: 35,
     marginRight: 35,
     margin: 10,
   },
