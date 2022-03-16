@@ -81,9 +81,7 @@ const RegisterScreen = props => {
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollStyle}>
         <View style={styles.innerView}>
-          <Text style={styles.txtTitle}>
-            Registeration sdfgsjg gherg ahffhkgjre itrhrothj
-          </Text>
+          <Text style={styles.txtTitle}>Registeration</Text>
           <View style={styles.SectionStyle}>
             <TextInput
               style={c_styles.inputStyle}
@@ -201,7 +199,7 @@ const styles = StyleSheet.create({
   innerView: {
     alignItems: 'center',
     width: Dimensions.get('window').width,
-    paddingHorizontal: 60,
+    paddingHorizontal: 80,
   },
   txtTitle: {
     fontWeight: 'bold',
@@ -223,7 +221,7 @@ const styles = StyleSheet.create({
 
   SectionStyle: {
     width: Dimensions.get('window').width,
-    paddingHorizontal: 60,
+    paddingHorizontal: 80,
     marginTop: 20,
     marginRight: 35,
     margin: 10,
