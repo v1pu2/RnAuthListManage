@@ -3,7 +3,9 @@
 
 ## Demo
 
-<img src="/Screenshots/Screen1.jpg" width="230" height="500"/>  <img src="/Screenshots/Screen2.jpg" width="230" height="500"/> <img src="/Screenshots/Screen3.jpg" width="230" height="500"/>  <img src="/Screenshots/Screen4.jpg" width="230" height="500"/> 
+<img src="/Screenshots/Screen1.jpg" width="250" height="500"/>             <img src="/Screenshots/Screen2.jpg" width="250" height="500"/>
+
+<img src="/Screenshots/Screen3.jpg" width="250" height="500"/>             <img src="/Screenshots/Screen4.jpg" width="250" height="500"/> 
 
 ## Base dependencies
 
