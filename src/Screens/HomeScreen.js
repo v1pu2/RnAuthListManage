@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   Text,
   View,
@@ -26,6 +26,14 @@ const HomeScreen = props => {
     setItem('');
     Keyboard.dismiss();
   };
+  const simpleView = useMemo(() => {
+    console.log('simpleview');
+    return (
+      <View style={c_styles.rowView}>
+        <Text style={c_styles.txtValue}>Do you want to see the list?</Text>
+      </View>
+    );
+  },[]);
   return (
     <View style={c_styles.container}>
       <View style={styles.innerView}>
@@ -46,9 +54,7 @@ const HomeScreen = props => {
             <Text style={c_styles.appButtonText}>{'Add'}</Text>
           </TouchableOpacity>
         </View>
-        <View style={c_styles.rowView}>
-          <Text style={c_styles.txtValue}>Do you want to see the list?</Text>
-        </View>
+        {simpleView}
         <Button
           text="Check List"
           onPress={() => navigation.navigate('ListScreen')}
